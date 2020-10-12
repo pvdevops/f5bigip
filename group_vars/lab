@@ -1,0 +1,23 @@
+provider:
+   user: venkat
+   password: password
+   server: "{{ inventory_hostname }}"
+   validate_certs: no
+   server_port: 443
+
+partition: TEST_PARTITION
+
+# vars file for f5
+become: True
+becomeuser: venkat
+remoteuser: venkat
+
+# vip variables
+
+# pool variables
+
+# ssl/cert variables
+
+# state variable
+state: present
+
