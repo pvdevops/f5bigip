@@ -1,0 +1,29 @@
+---
+# F5 playbook to create nodes and add them to pool
+- name: Create nodes
+  bigip_node:
+         provider: "{{ provider }}"
+         description: " Venkat Node {{ item.name }}"
+         name: "{{ item.name }}"
+         host: "{{ item.host }}"
+         partition: "{{ partition }}"
+         state: "{{ state }}"
+  loop:
+         - { name: "{{ pmhost1_name }}", host: "{{ pmhost1 }}" }
+         - { name: "{{ pmhost2_name }}", host: "{{ pmhost2 }}" }
+  #when: state == "absent"
+
+- name: Add nodes to pool
+  bigip_pool_member:
+         provider: "{{ provider }}"
+         name: "{{ item.name }}"
+         address: "{{ item.address }}"
+         port: "{{ pmport }}"
+         pool: "{{ poolname }}"
+         partition: "{{ partition }}"
+         state: "{{ state }}"
+  loop:
+         - { name: "{{ pmhost1_name }}", address: "{{ pmhost1 }}" }
+         - { name: "{{ pmhost2_name }}", address: "{{ pmhost2 }}" }
+  when: state == "present"
+
