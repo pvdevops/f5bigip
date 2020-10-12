@@ -1,0 +1,5 @@
+certs:
+   - name: roles/f5/files/certs/accessqa.fortigent.com
+     passphrase: qassl
+   - name: roles/f5/files/certs/lplqa.clientaccessportal.com
+     passphrase: qassl
