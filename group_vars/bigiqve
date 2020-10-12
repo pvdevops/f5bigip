@@ -1,0 +1,9 @@
+provider:
+   user: admin
+   password: :<$6K5q:5eziBRnSpefTBeRw1
+   server: "{{ inventory_hostname }}"
+   validate_certs: no
+   server_port: 443
+
+partition: Common
+
