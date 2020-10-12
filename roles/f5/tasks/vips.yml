@@ -1,0 +1,27 @@
+---
+# F5 playbook tasks
+- name: Adjust virtual server
+  bigip_virtual_server:
+         provider: "{{ provider }}" 
+         name: "{{ item.name }}" 
+         destination: "{{ item.destination }}"
+         port: "{{ item.port }}"
+         description: "{{ item.name }} VIP on port {{ item.port }}"
+         partition: "{{ partition }}" 
+         pool: "{{ item.pool }}"
+         snat: "Automap"
+         type: "standard"
+         irules: "{{ item.irule }}"
+         profiles:
+           - "tcp-lan-optimized"
+           - name: "{{ item.clientssl }}"
+             context: server-side
+           - name: serverssl_LPL
+             context: client-side
+           - "http"
+           - "analytics"
+         state: "{{ state }}"
+  loop: "{{ vips }}"
+  when: vips is defined
+
+#- debug: msg={{ inventory_hostname }}
