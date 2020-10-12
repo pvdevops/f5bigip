@@ -1,0 +1,10 @@
+- name: Add the iRule contained in template to the LTM module
+  bigip_irule:
+        provider: "{{ provider }}"
+        partition: "{{ partition }}"
+        name: "{{ item }}"
+        content: "{{ lookup('template', '{{ item }}.tcl') }}"
+        module: ltm
+        state: present
+  loop: "{{ irules }}"
+  when: irules is defined
