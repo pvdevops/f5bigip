@@ -1,0 +1,6 @@
+---
+nodes:
+   - name: p02hsvl-acdap32.corp.lpl.com
+     host: 10.35.8.108
+   - name: p02hsvl-acdap33.corp.lpl.com
+     host: 10.35.8.109
