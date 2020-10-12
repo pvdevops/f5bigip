@@ -1,0 +1,61 @@
+---
+# F5 playbook tasks
+- name: Adjust virtual server
+  bigip_virtual_server:
+         provider: "{{ provider }}" 
+         name: "{{ vsname }}"
+         destination: "{{ vsip }}"
+         port: "{{ vsport }}"
+         description: "Venkat Test VIP"
+         snat: "Automap"
+         all_profiles:
+           - "tcp-lan-optimized"
+           - "clientssl"
+           - "http"
+           - "analytics"
+         state: "{{ state }}"
+
+- debug: msg={{ inventory_hostname }}
+ 
+- name: Adjust a pool
+  bigip_pool:
+        provider: "{{ provider }}" 
+        name: "{{ poolname }}"
+        monitors: "/Common/http"
+        monitor_type: "and_list"
+        slow_ramp_time: "120"
+        lb_method: "ratio-member"
+        state: "{{ state }}"
+
+- name: Create nodes
+  bigip_node:
+         provider: "{{ provider }}" 
+         description: " Venkat Node {{ item.name }}"
+         name: "{{ item.name }}"
+         host: "{{ item.host }}"
+         state: "{{ state }}"
+  loop:
+         - { name: "{{ pmhost1_name }}", host: "{{ pmhost1 }}" }
+         - { name: "{{ pmhost2_name }}", host: "{{ pmhost2 }}" }
+  when: state == "absent"
+
+- name: Add nodes to pool
+  bigip_pool_member:
+         provider: "{{ provider }}" 
+         name: "{{ item.name }}"
+         address: "{{ item.address }}"
+         port: "{{ pmport }}"
+         pool: "{{ poolname }}"
+         state: "{{ state }}"
+  loop:
+         - { name: "{{ pmhost1_name }}", address: "{{ pmhost1 }}" }
+         - { name: "{{ pmhost2_name }}", address: "{{ pmhost2 }}" }
+  when: state == "absent"
+
+- name: Update a VS
+  bigip_virtual_server:
+         provider: "{{ provider }}" 
+         name: "{{ vsname }}"
+         pool: "{{ poolname }}"
+         state: "{{ state }}"
+  when: state == "absent"
