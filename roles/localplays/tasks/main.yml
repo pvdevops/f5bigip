@@ -1,0 +1,14 @@
+---
+# F5 playbook to update certificate
+- include_vars: bigiqve.yml
+- name: Export Cert from Certificate
+  shell: "openssl pkcs12 -in {{ item.name }}.pfx -nokeys -out {{ item.name }}.crt -passin pass:'{{ item.passphrase }}'"
+  loop: "{{ certs }}"
+  when: certs is defined
+  #delegate_to: localhost
+
+- name: Export Key from Certificate
+  shell: "openssl pkcs12 -in {{ item.name }}.pfx -nocerts -nodes -out {{ item.name }}.key -passin pass:'{{ item.passphrase }}'"
+  loop: "{{ certs }}"
+  when: certs is defined
+  #delegate_to: localhost
