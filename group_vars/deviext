@@ -1,0 +1,8 @@
+provider:
+   user: admin
+   password: CkcT@5N=!5pHD-NT
+   server: "{{ inventory_hostname }}"
+   validate_certs: no
+   server_port: 443
+
+partition: NP_DV_DI
