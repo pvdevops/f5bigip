@@ -1,0 +1,18 @@
+- name: Run local playbooks on ansible workstation
+  hosts: localhost
+  gather_facts: False
+
+
+  roles:
+    - localplays
+
+- name: Apply configurations to F5 devices
+  hosts: bigiqve 
+  gather_facts: False
+  become: true
+  become_user: "{{ becomeuser }}"
+  remote_user: "{{ remoteuser }}"
+
+
+  roles:
+#    - f5
