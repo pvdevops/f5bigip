@@ -1,0 +1,5 @@
+certs:
+   - name: roles/f5/files/certs/dap-west.lpl.com
+     passphrase: prodssl@2020
+   - name: roles/f5/files/certs/dapcluster.lpl.com
+     passphrase: prodssl@2020
