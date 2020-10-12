@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>F5</id>
+    <version>1.0.0.0</version>
+    <title>F5 Ansible</title>
+    <authors>Venkata Kadaveru</authors>
+    <owners>MIDDLEWARE</owners>
+    <description>Ansible Deployment Package for F5</description>
+    <copyright>Copyright 2020</copyright>
+  </metadata>
+  <files>
+	 <file src="**/*" />
+  </files>
+</package>
