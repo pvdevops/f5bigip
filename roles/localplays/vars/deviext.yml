@@ -1,0 +1,5 @@
+certs:
+   - name: roles/f5/files/certs/access.fortigent.com
+     passphrase: devssl
+   - name: roles/f5/files/certs/lpl.clientaccessportal.com
+     passphrase: devssl
