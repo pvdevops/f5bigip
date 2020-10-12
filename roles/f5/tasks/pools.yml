@@ -1,0 +1,34 @@
+---
+# F5 playbook to create a pool if it does not exist
+- name: Create a pool
+  bigip_pool:
+        provider: "{{ provider }}" 
+        name: "{{ item.name }}" 
+        partition: "{{ partition }}"
+        monitor_type: m_of_n
+        quorum: 1
+        monitors: 
+            - "{{ item.monitor }}" 
+        slow_ramp_time: 10
+        lb_method: "least-connections-member"
+        priority_group_activation: 0
+        metadata:
+            creator: ansible
+        state: "{{ state }}"
+  loop: "{{ pools }}"
+  when: pools is defined
+
+- name: Add nodes to pool
+  bigip_pool_member:
+         provider: "{{ provider }}"
+         pool: "{{ item.pool }}"
+         name: "{{ item.name }}"
+         host: "{{ item.host }}"
+         port: "{{ item.port }}"
+         partition: "{{ partition }}"
+         state: "{{ state }}"
+  loop: "{{ poolnodes }}"
+  when: 
+    - poolnodes is defined
+    - state == "present"
+
