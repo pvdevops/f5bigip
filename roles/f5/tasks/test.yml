@@ -1,0 +1,9 @@
+--- 
+- debug: msg="{{ item.name }} - {{ item.monitor }}"
+  loop: "{{ tpools }}"
+  when: tpools is defined
+
+- debug: 
+    msg: "System {{ inventory_hostname }}"
+
+- debug: msg="Debug message host = {{ inventory_hostname }}"
