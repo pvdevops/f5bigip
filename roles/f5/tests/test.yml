@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  gather_facts: False 
+  become: true
+  become_user: admin
+  remote_user: admin
+  roles:
+    - f5
