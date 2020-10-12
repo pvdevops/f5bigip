@@ -1,0 +1,9 @@
+provider:
+   user: admin
+   password: aBvFjXVieimXP2Bu
+   server: "{{ inventory_hostname }}"
+   validate_certs: no
+   server_port: 443
+
+partition: NP_DV_DI
+
