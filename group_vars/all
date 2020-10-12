@@ -1,0 +1,16 @@
+# Variables listed here are applicable to all host groups
+
+#httpd_port: 80
+become: True
+becomeuser: admin
+remoteuser: admin
+
+# ssl/cert variables
+#sslProfileName: "DAP.LPL.COM"
+#sslCertName: "dap.lpl.com"
+#certFile: "roles/f5/files/certs/dap.lpl.com.pfx"
+#crtFile: "roles/f5/files/certs/dap.lpl.com.crt"
+#keyFile: "roles/f5/files/certs/dap.lpl.com.key"
+#certpassword: prodssl@2020
+
+state: present
