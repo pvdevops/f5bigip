@@ -1,0 +1,11 @@
+---
+- include_vars: bigiqve.yml
+- include: nodes.yml
+- include: pools.yml
+- include: irules.yml
+- include: ssls.yml
+- include: vips.yml
+#- include: removecert.yml
+#- include: updatevip.yml
+#- include: addnodes.yml
+#- include: test.yml
