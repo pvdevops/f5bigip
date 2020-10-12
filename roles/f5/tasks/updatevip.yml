@@ -1,0 +1,22 @@
+---
+# F5 playbook tasks
+- name: Adjust virtual server
+  bigip_virtual_server:
+         provider: "{{ provider }}" 
+         name: "{{ vsname }}"
+         partition: "{{ partition }}" 
+         #irules: "{{ lookup('file', 'files/irules').splitlines() }}"
+           #- JSESSIONID_Persist   
+           #- LOGINCORP_FORGE   
+         profiles:
+           - "tcp-lan-optimized"
+           - name: "{{ sslProfileName }}"
+             context: server-side
+           - name: serverssl
+             context: client-side
+           - "http"
+           - "analytics"
+         state: "{{ state }}"
+
+- debug: msg={{ inventory_hostname }}
+ 
