@@ -1,0 +1,57 @@
+---
+nodes:
+   - name: txfrtexwebdev31.sddev.lpl.com
+     host: 10.29.58.43 
+   - name: txfrtexwebdev32.sddev.lpl.com
+     host: 10.29.58.44 
+
+pools:
+   - name: ACCESS.FORTIGENT.COM_pl_80
+     monitor: /Common/tcp
+   - name: LPL.CLIENTACCESSPORTAL.COM_pl_90
+     monitor: /Common/tcp
+
+poolnodes:
+   - pool: ACCESS.FORTIGENT.COM_pl_80
+     name: txfrtexwebdev31.sddev.lpl.com
+     host: 10.29.58.43 
+     port: 80 
+   - pool: ACCESS.FORTIGENT.COM_pl_80
+     name: txfrtexwebdev32.sddev.lpl.com
+     host: 10.29.58.44 
+     port: 80
+   - pool: LPL.CLIENTACCESSPORTAL.COM_pl_90 
+     name: txfrtexwebdev31.sddev.lpl.com
+     host: 10.29.58.43 
+     port: 90
+   - pool: LPL.CLIENTACCESSPORTAL.COM_pl_90 
+     name: txfrtexwebdev32.sddev.lpl.com
+     host: 10.29.58.44 
+     port: 90
+
+ssls:
+   - name: ACCESS.FORTIGENT.COM 
+     certname: access.fortigent.com 
+     crt: roles/f5/files/certs/access.fortigent.com.crt
+     key: roles/f5/files/certs/access.fortigent.com.key
+   - name: LPL.CLIENTACCESSPORTAL.COM
+     certname: lpl.clientaccessportal.lpl.com
+     crt: roles/f5/files/certs/lpl.clientaccessportal.com.crt
+     key: roles/f5/files/certs/lpl.clientaccessportal.com.key
+
+irules:
+   - Fortigent-Error-Page
+
+vips:
+   - name: ACCESS.FORTIGENT.COM
+     destination: 172.29.4.31
+     port: 443
+     pool: ACCESS.FORTIGENT.COM_pl_80
+     irule: Fortigent-Error-Page
+     clientssl: ACCESS.FORTIGENT.COM
+   - name: LPL.CLIENTACCESSPORTAL.COM 
+     destination: 172.29.4.32
+     port: 443
+     pool: LPL.CLIENTACCESSPORTAL.COM_pl_90
+     irule: Fortigent-Error-Page
+     clientssl: LPL.CLIENTACCESSPORTAL.COM 
