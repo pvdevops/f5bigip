@@ -1,0 +1,2 @@
+DAP.LPL.COM dap.lpl.com roles/f5/files/certs/dap.lpl.com.crt roles/f5/files/certs/dap.lpl.com.key
+DAPCLUSTER.LPL.COM dapcluster.lpl.com roles/f5/files/certs/dapcluster.lpl.com.crt roles/f5/files/certs/dapcluster.lpl.com.key
