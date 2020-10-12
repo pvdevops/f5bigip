@@ -1,0 +1,36 @@
+---
+# F5 playbook to update certificate
+- name: Update crt file to SSL Certificate
+  bigip_ssl_certificate:
+         provider: "{{ provider }}"
+         name: "{{ item.certname }}"
+         partition: "{{ partition }}"
+         content: "{{ lookup('file', '{{ item.crt }}') }}"
+         state: "{{ state }}"
+  loop: "{{ ssls }}"
+  when: ssls is defined
+
+
+- name: Update key file to SSL Certificate
+  bigip_ssl_key:
+         provider: "{{ provider }}"
+         name: "{{ item.certname }}"
+         partition: "{{ partition }}"
+         content: "{{ lookup('file', '{{ item.key }}') }}"
+         state: "{{ state }}"
+  loop: "{{ ssls }}"
+  when: ssls is defined
+
+- name: Update SSL Client profile file
+  bigip_profile_client_ssl:
+         provider: "{{ provider }}"
+         name: "{{ item.name }}"
+         partition: "{{ partition }}"
+         parent: "/Common/clientssl_LPL"
+         cert_key_chain:
+              - cert: "{{ item.certname }}"
+                key: "{{ item.certname }}"
+                #chain: "{{ sslCertName }}"
+         state: "{{ state }}"
+  loop: "{{ ssls }}"
+  when: ssls is defined
